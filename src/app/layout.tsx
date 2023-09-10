@@ -35,25 +35,19 @@ export const metadata = meta({
   },
   manifest: "/site.webmanifest",
   themeColor: "#171717",
-  appleWebApp: {
-    statusBarStyle: "black-translucent",
-    capable: true,
-  },
 });
 
 export default layout(({ children }) => {
   return (
     <html
       lang="en"
-      className={`bg-neutral-900 h-full ${sans.variable} ${mono.variable} ${serif.variable} font-sans`}
+      className={`bg-neutral-900 w-full h-full ${sans.variable} ${mono.variable} ${serif.variable} font-sans`}
       style={{
         backgroundColor: "#171717",
       }}
     >
-      <body className="flex flex-col w-screen min-h-[100dvh] items-center justify-start antialiased">
-        <div className="flex flex-col w-screen min-h-[100dvh] items-center justify-start">
-          {children}
-        </div>
+      <body className="flex flex-col w-full h-full items-center justify-start">
+        {children}
       </body>
     </html>
   );

@@ -7,18 +7,18 @@ import { useCamera } from "../(camera)/context";
 export default rc(() => {
   const { open } = useCamera();
   return (
-    <nav className="fixed bottom-5 bg-white/60 backdrop-blur-xl px-3 py-1 rounded-full flex items-center gap-4 z-[100]">
+    <nav className="fixed bottom-6 bg-white/60 backdrop-blur-xl px-3 py-1 rounded-full flex items-center gap-4 z-[100]">
       <Link
-        className="w-10 h-10 p-2 rounded-full hover:bg-white/40"
+        className="w-12 h-12 p-2 rounded-full hover:bg-white/40"
         href="/app"
       >
         <img src="/home.svg" />
       </Link>
-      <button className="w-10 h-10 p-2 rounded-full bg-black" onClick={open}>
+      <button className="w-12 h-12 p-2 rounded-full bg-black" onClick={open}>
         <img src="/snap.svg" />
       </button>
       <Link
-        className="w-10 h-10 p-2 rounded-full hover:bg-white/40"
+        className="w-12 h-12 p-2 rounded-full hover:bg-white/40"
         href="/app/profile"
       >
         <img

@@ -6,14 +6,14 @@ import example from "./example.jpg";
 export default page(() => {
   return (
     <>
-      <nav className="w-full flex items-center gap-3 md:gap-4 py-8 px-8">
+      <nav className="w-full flex items-center gap-3 md:gap-4 py-6 px-8">
         <img className="w-8 h-8" src="/pixle.png" />
         <span className="text-white font-medium">Camjam</span>
         <div className="ml-auto">
           <img className="w-6 h-6" src="/github.svg" />
         </div>
       </nav>
-      <main className="w-full min-h-[80dvh] flex flex-col md:flex-row items-center md:justify-centermd:pt-0 px-4 md:px-12">
+      <main className="w-full flex-1 flex flex-col md:flex-row items-center md:justify-center md:pt-0 px-4 md:px-12 pb-10">
         <section className="md:flex-[3] flex flex-col p-3 w-full h-full justify-center gap-5">
           <div className="flex items-center gap-4">
             <span className="text-blue-400 font-semibold text-xl md:text-2xl">
