@@ -4,7 +4,9 @@ export function useGlobalOfTheDay() {
   return useQuery({
     queryKey: ["daily", "global"],
     queryFn: async () => {
-      const response = await fetch(`${process.env.API_URL}/oftheday`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/oftheday`
+      );
       const data = await response.json();
       return data as {
         items: {
