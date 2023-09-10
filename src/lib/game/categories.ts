@@ -395,3 +395,7 @@ export const categories = excl("categories", () =>
     return acc;
   }, new Map<string, typeof all>())
 );
+
+export function item(name: string) {
+  return all.find((x) => x.name === name);
+}

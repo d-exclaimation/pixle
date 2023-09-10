@@ -5,27 +5,25 @@ import {
   createContext,
   useCallback,
   useContext,
-  useRef,
 } from "react";
 
-export const CameraContext = createContext<{
+export type CameraContextValue = {
   ref: MutableRefObject<HTMLInputElement | null>;
-}>({
+  photo?: { file: File; uri: string };
+  setPhoto: (photo?: { file: File; uri: string }) => void;
+};
+
+export const CameraContext = createContext<CameraContextValue>({
   ref: { current: null },
+  setPhoto: () => {},
 });
 
-export function useCameraProvider() {
-  const ref = useRef<HTMLInputElement | null>(null);
-
-  return { ref };
-}
-
 export function useCamera() {
-  const { ref } = useContext(CameraContext);
+  const { ref, setPhoto, photo } = useContext(CameraContext);
 
   const open = useCallback(() => {
     ref.current?.click();
   }, [ref]);
 
-  return open;
+  return { ref, open, setPhoto, photo };
 }

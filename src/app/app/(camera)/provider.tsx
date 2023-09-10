@@ -1,13 +1,16 @@
 "use client";
 
+import { resizeImage } from "@/lib/image/resize";
 import { rc } from "@d-exclaimation/next";
-import type { ReactNode } from "react";
-import { CameraContext, useCameraProvider } from "./context";
+import { useRef, useState, type ReactNode } from "react";
+import { CameraContext } from "./context";
 
 export default rc<{ children: ReactNode }>(({ children }) => {
-  const { ref } = useCameraProvider();
+  const ref = useRef<HTMLInputElement | null>(null);
+  const [photo, setPhoto] = useState<{ file: File; uri: string } | undefined>();
+
   return (
-    <CameraContext.Provider value={{ ref }}>
+    <CameraContext.Provider value={{ ref, photo, setPhoto }}>
       <input
         ref={ref}
         type="file"
@@ -15,6 +18,12 @@ export default rc<{ children: ReactNode }>(({ children }) => {
         capture="environment"
         className="hidden"
         hidden
+        onChange={async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          const uri = await resizeImage(URL.createObjectURL(file), 400);
+          setPhoto({ file, uri });
+        }}
       />
       {children}
     </CameraContext.Provider>

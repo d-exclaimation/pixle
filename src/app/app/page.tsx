@@ -1,10 +1,34 @@
-import { random } from "@/lib/game/daily";
 import { page } from "@d-exclaimation/next";
 
 export default page(() => {
-  const { difficulty, items } = random();
+  const items = [
+    {
+      name: "person",
+      icon: "👤",
+      category: "House Entity",
+      difficulty: 1,
+    },
+    {
+      name: "person",
+      icon: "👤",
+      category: "House Entity",
+      difficulty: 1,
+    },
+    {
+      name: "bird",
+      icon: "🕊️",
+      category: "House Entity",
+      difficulty: 2,
+    },
+    {
+      name: "cat",
+      icon: "🐱",
+      category: "House Entity",
+      difficulty: 1,
+    },
+  ];
+  const difficulty = "hardest" as string;
   const today = new Date();
-
   return (
     <div className="flex flex-col w-full min-h-[100dvh] pb-2">
       <div className="flex flex-col gap-1.5 pt-10 pb-8">
@@ -137,5 +161,3 @@ export default page(() => {
     </div>
   );
 });
-
-export const runtime = "edge";

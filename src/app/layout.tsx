@@ -50,10 +50,10 @@ export default layout(({ children }) => {
         backgroundColor: "#171717",
       }}
     >
-      <body
-        className={`flex flex-col w-screen min-h-[100dvh] items-center justify-start`}
-      >
-        {children}
+      <body className="flex flex-col w-screen min-h-[100dvh] items-center justify-start antialiased">
+        <div className="flex flex-col w-screen min-h-[100dvh] items-center justify-start">
+          {children}
+        </div>
       </body>
     </html>
   );

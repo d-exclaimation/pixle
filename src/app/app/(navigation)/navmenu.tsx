@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCamera } from "../(camera)/context";
 
 export default rc(() => {
-  const snap = useCamera();
+  const { open } = useCamera();
   return (
     <nav className="fixed bottom-5 bg-white/60 backdrop-blur-xl px-3 py-1 rounded-full flex items-center gap-4 z-[100]">
       <Link
@@ -14,7 +14,7 @@ export default rc(() => {
       >
         <img src="/home.svg" />
       </Link>
-      <button className="w-10 h-10 p-2 rounded-full bg-black" onClick={snap}>
+      <button className="w-10 h-10 p-2 rounded-full bg-black" onClick={open}>
         <img src="/snap.svg" />
       </button>
       <Link

@@ -90,5 +90,3 @@ export default page(() => {
     </>
   );
 });
-
-export const runtime = "edge";
