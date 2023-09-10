@@ -17,7 +17,7 @@ export default page(() => {
         <section className="md:flex-[3] flex flex-col p-3 w-full h-full justify-center gap-5">
           <div className="flex items-center gap-4">
             <span className="text-blue-400 font-semibold text-xl md:text-2xl">
-              Pixle
+              Camjam
             </span>
 
             <div className="text-blue-400 px-3 py-0.5 text-xs outline outline-blue-400 rounded-full">
