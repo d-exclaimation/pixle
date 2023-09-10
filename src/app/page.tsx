@@ -6,9 +6,9 @@ import example from "./example.jpg";
 export default page(() => {
   return (
     <>
-      <nav className="w-full flex items-center gap-3 md:gap-4 py-4 px-8">
+      <nav className="w-full flex items-center gap-3 md:gap-4 py-8 px-8">
         <img className="w-8 h-8" src="/pixle.png" />
-        <span className="text-white font-medium">Pixle</span>
+        <span className="text-white font-medium">Camjam</span>
         <div className="ml-auto">
           <img className="w-6 h-6" src="/github.svg" />
         </div>
