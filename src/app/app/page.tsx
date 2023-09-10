@@ -1,34 +1,20 @@
+"use client";
+
+import { useGlobalOfTheDay } from "@/lib/data/global";
 import { page } from "@d-exclaimation/next";
+import { useEffect, useMemo, useState } from "react";
 
 export default page(() => {
-  const items = [
-    {
-      name: "person",
-      icon: "👤",
-      category: "House Entity",
-      difficulty: 1,
-    },
-    {
-      name: "person",
-      icon: "👤",
-      category: "House Entity",
-      difficulty: 1,
-    },
-    {
-      name: "bird",
-      icon: "🕊️",
-      category: "House Entity",
-      difficulty: 2,
-    },
-    {
-      name: "cat",
-      icon: "🐱",
-      category: "House Entity",
-      difficulty: 1,
-    },
-  ];
-  const difficulty = "hardest" as string;
-  const today = new Date();
+  const { data, isLoading } = useGlobalOfTheDay();
+  const [today, setToday] = useState(new Date());
+
+  const items = useMemo(() => data?.items ?? [], [data]);
+  const difficulty = useMemo(() => data?.difficulty ?? "easy", [data]);
+
+  useEffect(() => {
+    setToday(new Date());
+  }, [setToday]);
+
   return (
     <div className="flex flex-col w-full min-h-[100dvh] pb-2">
       <div className="flex flex-col gap-1.5 pt-10 pb-8">

@@ -1,7 +1,7 @@
 "use client";
 
+import { useGlobalOfTheDay } from "@/lib/data/global";
 import { all, item } from "@/lib/game/categories";
-import type { random } from "@/lib/game/daily";
 import useDevice from "@/lib/hooks/use-device";
 import { Dimensions } from "@/lib/image/resize";
 import { rc } from "@d-exclaimation/next";
@@ -17,7 +17,8 @@ type Evaluation = {
   kind: "exact" | "similar" | "none";
 }[];
 
-export default rc<ReturnType<typeof random>>(({ items }) => {
+export default rc(() => {
+  const { data, isLoading } = useGlobalOfTheDay();
   const timeoutRef = useRef<NodeJS.Timeout | number>();
   const { device } = useDevice();
   const { photo, setPhoto } = useCamera();
@@ -62,8 +63,9 @@ export default rc<ReturnType<typeof random>>(({ items }) => {
     // Load the model and evaluate the image
     const model = await loadModel();
     const predictions = await model.detect(img);
+    const items = data?.items ?? [];
     const given = predictions
-      .map(({ class: name, bbox }) => {
+      .map(({ class: name }) => {
         const res = item(name);
         if (!res) return undefined;
         return {
@@ -124,7 +126,7 @@ export default rc<ReturnType<typeof random>>(({ items }) => {
     img.remove();
 
     setEvaluation(result);
-  }, [loadModel, photo, setEvaluation, setDimensions]);
+  }, [loadModel, photo, setEvaluation, setDimensions, data]);
 
   useEffect(() => {
     return () => {
@@ -170,7 +172,7 @@ export default rc<ReturnType<typeof random>>(({ items }) => {
               </div>
 
               <div className="flex w-full px-6 py-3 items-center justify-center gap-3">
-                {loading ? (
+                {loading || isLoading ? (
                   <>
                     {[0, 0.25, 0.5, 1].map((each, i) => (
                       <div

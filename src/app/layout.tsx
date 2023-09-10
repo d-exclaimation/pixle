@@ -1,5 +1,6 @@
 import { layout, meta } from "@d-exclaimation/next";
 import { DM_Mono, DM_Sans, DM_Serif_Display } from "next/font/google";
+import Provider from "./(query)/provider";
 import "./globals.css";
 
 const sans = DM_Sans({
@@ -47,7 +48,7 @@ export default layout(({ children }) => {
       }}
     >
       <body className="flex flex-col w-full h-full items-center justify-start">
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
