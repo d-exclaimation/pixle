@@ -1,7 +1,22 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { safeParseAsync } from "valibot";
-import { Attempt, Game, Goal } from "./common";
+import { Attempt, Game, Games, Goal } from "./common";
 import { store } from "./idb";
+
+export function useLocalAllGames() {
+  return useQuery({
+    queryKey: ["daily", "game", "all"],
+    queryFn: async () => {
+      const daily = await store("daily");
+      const raw = await daily.getAll();
+      const maybeGames = await safeParseAsync(Games, raw);
+      if (maybeGames.success) {
+        return maybeGames.output;
+      }
+      return [];
+    },
+  });
+}
 
 export function useLocalGameOfTheDay(goal: Goal | undefined) {
   return useQuery({

@@ -42,3 +42,6 @@ export const Game = v.object({
   goal: Goal,
   day: v.string(),
 });
+
+export type Games = v.Output<typeof Games>;
+export const Games = v.array(Game);
