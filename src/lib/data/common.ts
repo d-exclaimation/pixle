@@ -38,6 +38,7 @@ export const Attempt = v.array(AttemptItem);
 export type Game = v.Output<typeof Game>;
 export const Game = v.object({
   attempts: v.array(Attempt),
+  winning: v.optional(v.string()),
   goal: Goal,
   day: v.string(),
 });

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { safeParseAsync } from "valibot";
 import { Attempt, Game, Goal } from "./common";
+import { store } from "./idb";
 
 export function useLocalGameOfTheDay(goal: Goal | undefined) {
   return useQuery({
@@ -9,8 +10,9 @@ export function useLocalGameOfTheDay(goal: Goal | undefined) {
       if (!goal) {
         throw new Error("No goal provided");
       }
-      const raw = localStorage.getItem(`daily:game:${goal.day}`);
-      const maybeGame = await safeParseAsync(Game, JSON.parse(raw ?? "{}"));
+      const daily = await store("daily");
+      const raw = await daily.get(goal.day);
+      const maybeGame = await safeParseAsync(Game, raw);
       if (maybeGame.success) {
         return maybeGame.output;
       }
@@ -21,23 +23,29 @@ export function useLocalGameOfTheDay(goal: Goal | undefined) {
         goal,
       } as Game;
 
-      localStorage.setItem(`daily:game:${goal.day}`, JSON.stringify(game));
+      await daily.add(game);
       return game;
     },
     enabled: !!goal?.day,
   });
 }
 
+type LocalAttemptMutationArgs = {
+  attempt: Attempt;
+  photo: string;
+};
+
 export function useLocalAttemptMutation(goal: Goal | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["daily", "attempt", goal?.day],
-    mutationFn: async (attempt: Attempt) => {
+    mutationFn: async ({ attempt, photo }: LocalAttemptMutationArgs) => {
       if (!goal) {
         return;
       }
-      const raw = localStorage.getItem(`daily:game:${goal.day}`);
-      const maybeGame = await safeParseAsync(Game, JSON.parse(raw ?? "{}"));
+      const daily = await store("daily");
+      const raw = await daily.get(goal.day);
+      const maybeGame = await safeParseAsync(Game, raw);
       const game = maybeGame.success
         ? maybeGame.output
         : ({
@@ -46,8 +54,17 @@ export function useLocalAttemptMutation(goal: Goal | undefined) {
             goal,
           } as Game);
 
-      game.attempts.push(attempt);
-      localStorage.setItem(`daily:game:${goal.day}`, JSON.stringify(game));
+      const win =
+        attempt.every(({ kind }) => kind === "exact") &&
+        attempt.length === goal.items.length;
+
+      const newGame = {
+        ...game,
+        attempts: [...game.attempts, attempt],
+        winning: win ? photo : undefined,
+      } satisfies Game;
+
+      await daily.put(newGame);
       return game;
     },
     onSuccess: async () => {

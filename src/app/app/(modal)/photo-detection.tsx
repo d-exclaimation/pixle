@@ -4,7 +4,7 @@ import type { Attempt, AttemptItem } from "@/lib/data/common";
 import { useGlobalOfTheDay } from "@/lib/data/global";
 import { useLocalAttemptMutation } from "@/lib/data/local";
 import { item } from "@/lib/game/categories";
-import { Dimensions } from "@/lib/image/resize";
+import { base64 } from "@/lib/image/base64";
 import { rc } from "@d-exclaimation/next";
 import * as cocossd from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs-backend-cpu";
@@ -21,7 +21,7 @@ export default rc(() => {
   const { photo, setPhoto } = useCamera();
   const [model, setModel] = useState<cocossd.ObjectDetection>();
   const [loading, setLoading] = useState(true);
-  const [evaluation, setEvaluation] = useState<Attempt>([]);
+  const [attempt, setAttempt] = useState<Attempt>([]);
 
   const loadModel = useCallback(async () => {
     if (model) return model;
@@ -38,18 +38,6 @@ export default rc(() => {
     img.style.display = "none";
     img.src = photo.uri;
     document.body.appendChild(img);
-
-    const { height, width } = await new Promise<Dimensions>(
-      (resolve, reject) => {
-        img.onload = () => {
-          const { width, height } = img;
-          resolve({ width, height });
-        };
-        img.onerror = (e) => {
-          reject(e);
-        };
-      }
-    );
 
     // Load the model and evaluate the image
     const model = await loadModel();
@@ -111,8 +99,8 @@ export default rc(() => {
 
     img.remove();
 
-    setEvaluation(result);
-  }, [loadModel, photo, setEvaluation, goal]);
+    setAttempt(result);
+  }, [loadModel, photo, setAttempt, goal]);
 
   useEffect(() => {
     return () => {
@@ -125,7 +113,7 @@ export default rc(() => {
       open={!!photo}
       onClose={() => {
         setPhoto(undefined);
-        setEvaluation([]);
+        setAttempt([]);
         setLoading(true);
       }}
     >
@@ -172,7 +160,7 @@ export default rc(() => {
                   </>
                 ) : (
                   <>
-                    {evaluation
+                    {attempt
                       .filter((each) => each.name !== "none")
                       .map(({ icon }, j) => (
                         <div
@@ -194,9 +182,11 @@ export default rc(() => {
                 <div className="flex flex-col w-full gap-3 items-center justify-center pt-6 animate-in fade-in-0">
                   <button
                     className="w-[60%] px-3 py-2 bg-neutral-700 text-white rounded-xl"
-                    disabled={isMutationLoading || evaluation.length === 0}
+                    disabled={isMutationLoading || attempt.length === 0}
                     onClick={async () => {
-                      await mutateAsync(evaluation);
+                      if (!photo) return;
+                      const basePhoto = await base64(photo.file);
+                      await mutateAsync({ attempt, photo: basePhoto });
                       setPhoto(undefined);
                     }}
                   >

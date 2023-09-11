@@ -21,6 +21,12 @@ export default rc<{ children: ReactNode }>(({ children }) => {
         onChange={async (e) => {
           const file = e.target.files?.[0];
           if (!file) return;
+
+          if (file.size > 1024 * 1024 * 5) {
+            alert("File size is too big, please try again");
+            return;
+          }
+
           const uri = await resizeImage(URL.createObjectURL(file), 400);
           setPhoto({ file, uri });
         }}

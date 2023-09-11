@@ -4,17 +4,31 @@ import { useGlobalOfTheDay } from "@/lib/data/global";
 import { useLocalGameOfTheDay } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
 import { useEffect, useMemo, useState } from "react";
+import { useCamera } from "./(camera)/context";
 
 export default page(() => {
-  const { data: goal, isLoading: isGoalLoading } = useGlobalOfTheDay();
-  const { data: game, isLoading: isGameLoading } = useLocalGameOfTheDay(goal);
+  const {
+    data: goal,
+    isLoading: isGoalLoading,
+    error: globalError,
+  } = useGlobalOfTheDay();
+  const {
+    data: game,
+    isLoading: isGameLoading,
+    error: localError,
+  } = useLocalGameOfTheDay(goal);
+
+  const { open } = useCamera();
   const [today, setToday] = useState(new Date());
 
   const isLoading = useMemo(
     () => isGoalLoading || isGameLoading,
     [isGameLoading, isGoalLoading]
   );
-  const items = useMemo(() => goal?.items ?? [], [goal]);
+  const items = useMemo(
+    () => goal?.items ?? game?.goal.items ?? [],
+    [goal, game]
+  );
   const difficulty = useMemo(() => goal?.difficulty ?? "easy", [goal]);
   const attempts = useMemo(() => {
     const existing = game?.attempts ?? [];
@@ -30,6 +44,55 @@ export default page(() => {
   useEffect(() => {
     setToday(new Date());
   }, [setToday]);
+
+  if (globalError && !items.length) {
+    return (
+      <div className="flex flex-col w-full min-h-[100dvh] pb-2">
+        <div className="flex flex-col gap-1.5 pt-10 pb-8">
+          <span className="text-neutral-300 text-xs">Hi, d-exclaimation!</span>
+          <span className="text-white text-xl font-medium">Welcome back!</span>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-4 w-[75%] mb-24">
+            <span className="text-6xl text-red-300/40 font-medium text-center">
+              (&gt;_&lt;)
+            </span>
+            <span className="text-xs text-red-300 text-center [text-wrap:balance]">
+              Unable to retrive daily goal, please try again later
+            </span>
+            <button
+              className="text-xs text-white underline"
+              onClick={() => window.location.reload()}
+            >
+              Try again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (localError) {
+    return (
+      <div className="flex flex-col w-full min-h-[100dvh] pb-2">
+        <div className="flex flex-col gap-1.5 pt-10 pb-8">
+          <span className="text-neutral-300 text-xs">Hi, d-exclaimation!</span>
+          <span className="text-white text-xl font-medium">Welcome back!</span>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-4 w-[75%] mb-24">
+            <span className="text-6xl text-red-300/40 font-medium text-center">
+              (&gt;_&lt;)
+            </span>
+            <span className="text-xs text-red-300 text-center [text-wrap:balance]">
+              Your browser is not supported, please try again on a different
+              browser
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] pb-2">
@@ -163,7 +226,11 @@ export default page(() => {
             {/* Winning photo */}
             <div className="relative flex items-center w-full mt-8 mb-3 px-4 gap-3 py-4">
               <div className="px-2 py-2 pb-6 bg-white -rotate-2">
-                <div className="w-32 h-32 bg-black" />
+                {game?.winning ? (
+                  <img className="w-32 h-32 object-cover" src={game.winning} />
+                ) : (
+                  <div className="w-32 h-32 bg-black" />
+                )}
               </div>
 
               <div className="flex flex-col items-center justify-center flex-1 gap-3">
@@ -177,22 +244,22 @@ export default page(() => {
                   Save photo
                 </button>
               </div>
-              <div className="absolute inset-0 bg-[#202020]/80 backdrop-blur flex flex-col items-center justify-center gap-2">
-                <span className="text-lg text-white font-medium">
-                  No winning photo
-                </span>
-                <span className="text-xs text-neutral-300">
-                  You have not snapped the photo of the day yet
-                </span>
-                <button
-                  className="text-xs text-white underline"
-                  onClick={() =>
-                    localStorage.removeItem(`daily:game:${goal?.day}`)
-                  }
-                >
-                  Take more photos &rarr;
-                </button>
-              </div>
+              {!game?.winning && (
+                <div className="absolute inset-0 bg-[#202020]/80 backdrop-blur flex flex-col items-center justify-center gap-2">
+                  <span className="text-lg text-white font-medium">
+                    No winning photo
+                  </span>
+                  <span className="text-xs text-neutral-300">
+                    You have not snapped the photo of the day yet
+                  </span>
+                  <button
+                    className="text-xs text-white underline"
+                    onClick={open}
+                  >
+                    Take more photos &rarr;
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </>
