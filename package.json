@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev:tunnel": "concurrently \"next dev\" \"cloudflared tunnel --url http://localhost:3000\"",
     "tunnel": "cloudflared tunnel --url http://localhost:3000",
+    "tunnel:http2": "cloudflared tunnel --protocol http2 --url http://localhost:3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -30,6 +31,7 @@
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2",
+    "valibot": "^0.15.0",
     "vaul": "^0.5.0"
   },
   "devDependencies": {

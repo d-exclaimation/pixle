@@ -1,4 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { safeParseAsync } from "valibot";
+import { Goal } from "./common";
 
 export function useGlobalOfTheDay() {
   return useQuery({
@@ -7,16 +9,25 @@ export function useGlobalOfTheDay() {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/oftheday`
       );
-      const data = await response.json();
-      return data as {
-        items: {
-          name: string;
-          icon: string;
-          category: string;
-          difficulty: number;
-        }[];
-        difficulty: "easiest" | "easy" | "medium" | "hard" | "hardest";
-      };
+      const raw = await response.json();
+      const maybeData = await safeParseAsync(Goal, raw);
+
+      if (maybeData.success) {
+        return maybeData.output;
+      }
+
+      return {
+        items: [
+          {
+            name: "person",
+            icon: "👤",
+            category: "House Entity",
+            difficulty: 0,
+          },
+        ],
+        difficulty: "easiest",
+        day: new Date().toISOString().split("T")[0],
+      } satisfies Goal;
     },
   });
 }

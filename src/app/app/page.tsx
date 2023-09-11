@@ -1,15 +1,31 @@
 "use client";
 
 import { useGlobalOfTheDay } from "@/lib/data/global";
+import { useLocalGameOfTheDay } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
 import { useEffect, useMemo, useState } from "react";
 
 export default page(() => {
-  const { data, isLoading } = useGlobalOfTheDay();
+  const { data: goal, isLoading: isGoalLoading } = useGlobalOfTheDay();
+  const { data: game, isLoading: isGameLoading } = useLocalGameOfTheDay(goal);
   const [today, setToday] = useState(new Date());
 
-  const items = useMemo(() => data?.items ?? [], [data]);
-  const difficulty = useMemo(() => data?.difficulty ?? "easy", [data]);
+  const isLoading = useMemo(
+    () => isGoalLoading || isGameLoading,
+    [isGameLoading, isGoalLoading]
+  );
+  const items = useMemo(() => goal?.items ?? [], [goal]);
+  const difficulty = useMemo(() => goal?.difficulty ?? "easy", [goal]);
+  const attempts = useMemo(() => {
+    const existing = game?.attempts ?? [];
+    const padding = Array.from({ length: 5 - existing.length }, () => []);
+    return [...existing, ...padding];
+  }, [items, game]);
+
+  const lastAttemptIndex = useMemo(
+    () => (game ? game.attempts.length - 1 : -1),
+    [attempts]
+  );
 
   useEffect(() => {
     setToday(new Date());
@@ -38,18 +54,18 @@ export default page(() => {
         <>
           {/* Game */}
           <div
-            className={`flex flex-col w-full rounded-3xl outline outline-2 outline-red-400 py-5 px-3
-        ${
-          difficulty === "easiest"
-            ? "outline-blue-600"
-            : difficulty === "easy"
-            ? "outline-purple-500"
-            : difficulty === "medium"
-            ? "outline-fuchsia-400"
-            : difficulty === "hard"
-            ? "outline-red-400"
-            : "outline-orange-500"
-        }`}
+            className={`flex flex-col w-full rounded-3xl outline outline-2 py-5 px-3
+            ${
+              difficulty === "easiest"
+                ? "outline-blue-600"
+                : difficulty === "easy"
+                ? "outline-purple-500"
+                : difficulty === "medium"
+                ? "outline-fuchsia-400"
+                : difficulty === "hard"
+                ? "outline-red-400"
+                : "outline-orange-500"
+            }`}
           >
             {/* Header */}
             <div className="flex items-center gap-2">
@@ -101,27 +117,43 @@ export default page(() => {
             {/* Wordle */}
             <div className="flex flex-col mt-6 w-full">
               <div className="flex flex-col w-full gap-2.5 mx-4 border-l border-neutral-600/50">
-                {[1, 2, 3, 4, 5].map((_, i) => {
-                  const isClosed = i > 2;
+                {attempts.map((attempt, i) => {
                   return (
                     <div
                       className="flex flex-row items-center gap-2.5 -translate-x-1"
                       key={`row-${i}`}
                     >
                       <div className="w-2 h-2 bg-black outline outline-4 outline-white rounded-full mr-3" />
-                      {items.map(({ icon }, j) => {
-                        const color = isClosed
-                          ? "bg-neutral-800"
-                          : "bg-neutral-200/30";
-                        return (
-                          <div
-                            className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center`}
-                            key={`col-${j}`}
-                          >
-                            {!isClosed && <span>{icon}</span>}
-                          </div>
-                        );
-                      })}
+                      {attempt.length
+                        ? attempt.map(({ icon, kind }, j) => {
+                            const color =
+                              kind === "exact"
+                                ? "bg-emerald-500/30"
+                                : kind === "similar"
+                                ? "bg-yellow-500/30"
+                                : "bg-red-500/30";
+                            return (
+                              <div
+                                className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center
+                                data-[animate="true"]:animate-in data-[animate="true"]:duration-700 
+                                data-[animate="true"]:fade-in-0 data-[animate="true"]:slide-in-from-top-3
+                                data-[animate="true"]:fill-mode-backwards`}
+                                key={`col-${icon}-${kind}-${j}`}
+                                data-animate={i === lastAttemptIndex}
+                                style={{
+                                  animationDelay: `${j * 0.25}s`,
+                                }}
+                              >
+                                <span>{icon}</span>
+                              </div>
+                            );
+                          })
+                        : items.map((_, j) => (
+                            <div
+                              className={`w-12 h-12 rounded-lg bg-neutral-700 flex items-center justify-center`}
+                              key={`col-${j}`}
+                            ></div>
+                          ))}
                     </div>
                   );
                 })}
