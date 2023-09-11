@@ -184,7 +184,12 @@ export default page(() => {
                 <span className="text-xs text-neutral-300">
                   You have not snapped the photo of the day yet
                 </span>
-                <button className="text-xs text-white underline">
+                <button
+                  className="text-xs text-white underline"
+                  onClick={() =>
+                    localStorage.removeItem(`daily:game:${goal?.day}`)
+                  }
+                >
                   Take more photos &rarr;
                 </button>
               </div>
