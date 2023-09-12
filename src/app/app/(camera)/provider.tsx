@@ -22,7 +22,7 @@ export default rc<{ children: ReactNode }>(({ children }) => {
           const file = e.target.files?.[0];
           if (!file) return;
 
-          if (file.size > 1024 * 1024 * 5) {
+          if (file.size > 1024 * 1024 * 10) {
             alert("File size is too big, please try again");
             return;
           }
