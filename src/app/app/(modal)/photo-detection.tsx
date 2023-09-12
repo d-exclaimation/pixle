@@ -187,12 +187,25 @@ export default rc(() => {
                       if (!photo) return;
                       const basePhoto = await base64(photo.file);
                       await mutateAsync({ attempt, photo: basePhoto });
+
+                      (window.URL || window.webkitURL).revokeObjectURL(
+                        photo.uri
+                      );
                       setPhoto(undefined);
                     }}
                   >
                     Confirm
                   </button>
-                  <button className="w-[60%] px-3 py-2 bg-neutral-50 text-red-700 rounded-xl">
+                  <button
+                    className="w-[60%] px-3 py-2 bg-neutral-50 text-red-700 rounded-xl"
+                    onClick={() => {
+                      if (!photo) return;
+                      (window.URL || window.webkitURL).revokeObjectURL(
+                        photo.uri
+                      );
+                      setPhoto(undefined);
+                    }}
+                  >
                     Cancel
                   </button>
                 </div>
