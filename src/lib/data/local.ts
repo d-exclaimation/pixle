@@ -75,7 +75,7 @@ export function useLocalAttemptMutation(goal: Goal | undefined) {
 
       const newGame = {
         ...game,
-        attempts: [...game.attempts, attempt].slice(0, 5),
+        attempts: [...game.attempts, attempt].slice(0, 6),
         winning: win ? photo : undefined,
       } satisfies Game;
 

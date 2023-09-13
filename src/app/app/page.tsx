@@ -32,7 +32,7 @@ export default page(() => {
   const difficulty = useMemo(() => goal?.difficulty ?? "easy", [goal]);
   const attempts = useMemo(() => {
     const existing = game?.attempts ?? [];
-    const padding = Array.from({ length: 5 - existing.length }, () => []);
+    const padding = Array.from({ length: 6 - existing.length }, () => []);
     return [...existing, ...padding];
   }, [items, game]);
 
