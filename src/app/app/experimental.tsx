@@ -14,7 +14,10 @@ export default rc(() => {
 
   useEffect(() => {
     const info = localStorage.getItem("pixle:user:new");
-    setIsNewUser(!info || info !== "false");
+    if (info && info === "false") return;
+
+    const ref = setTimeout(() => setIsNewUser(true), 100);
+    return () => clearTimeout(ref);
   }, [setIsNewUser]);
 
   return (
