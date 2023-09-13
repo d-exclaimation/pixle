@@ -9,7 +9,7 @@ export default page(() => {
     <>
       <nav className="w-full flex items-center gap-3 md:gap-4 py-6 px-8">
         <img className="w-8 h-8" src="/pixle.png" />
-        <span className="text-white font-medium">Camjam</span>
+        <span className="text-white font-medium">Pixle</span>
         <div className="ml-auto">
           <img className="w-6 h-6" src="/github.svg" />
         </div>
@@ -18,7 +18,7 @@ export default page(() => {
         <section className="md:flex-[3] flex flex-col p-3 w-full h-full justify-center gap-5">
           <div className="flex items-center gap-4">
             <span className="text-blue-400 font-semibold text-xl md:text-2xl">
-              Camjam
+              Pixle
             </span>
 
             <div className="text-blue-400 px-3 py-0.5 text-xs outline outline-blue-400 rounded-full">

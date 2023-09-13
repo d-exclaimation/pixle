@@ -19,7 +19,7 @@ const serif = DM_Serif_Display({
 });
 
 export const metadata = meta({
-  title: "Camjam",
+  title: "Pixle",
   description: "Capture the world, one snap at a time",
   icons: {
     icon: [

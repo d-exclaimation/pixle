@@ -1,4 +1,4 @@
-const DB_NAME = "camjam";
+const DB_NAME = "pixle";
 const DB_VERSION = 1;
 
 const TABLES = [["daily", { keyPath: "day" }]] as const;
