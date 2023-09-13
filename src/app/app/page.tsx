@@ -47,9 +47,9 @@ export default page(() => {
 
   if (globalError && !items.length) {
     return (
-      <div className="flex flex-col w-full min-h-[100dvh] pb-2">
+      <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-left-6">
         <div className="flex flex-col gap-1.5 pt-10 pb-8">
-          <span className="text-neutral-300 text-xs">Hi, d-exclaimation!</span>
+          <span className="text-neutral-300 text-xs">Hi, player</span>
           <span className="text-white text-xl font-medium">Welcome back!</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-2">
@@ -74,9 +74,9 @@ export default page(() => {
 
   if (localError) {
     return (
-      <div className="flex flex-col w-full min-h-[100dvh] pb-2">
+      <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-left-6">
         <div className="flex flex-col gap-1.5 pt-10 pb-8">
-          <span className="text-neutral-300 text-xs">Hello!</span>
+          <span className="text-neutral-300 text-xs">Hi, player</span>
           <span className="text-white text-xl font-medium">Welcome back!</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-2">
@@ -95,9 +95,9 @@ export default page(() => {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] pb-2">
+    <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-left-6">
       <div className="flex flex-col gap-1.5 pt-10 pb-8">
-        <span className="text-neutral-300 text-xs">Hi, d-exclaimation!</span>
+        <span className="text-neutral-300 text-xs">Hi, player</span>
         <span className="text-white text-xl font-medium">Welcome back!</span>
       </div>
 

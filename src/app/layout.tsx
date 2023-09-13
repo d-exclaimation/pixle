@@ -47,7 +47,7 @@ export default layout(({ children }) => {
         backgroundColor: "#171717",
       }}
     >
-      <body className="flex flex-col w-full h-full items-center justify-start">
+      <body className="flex flex-col w-full min-h-full items-center justify-start">
         <Provider>{children}</Provider>
       </body>
     </html>

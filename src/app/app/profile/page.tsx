@@ -4,18 +4,18 @@ import { useLocalAllGames } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
 
 export default page(() => {
-  const { data, isLoading, error } = useLocalAllGames();
+  const { data, isLoading } = useLocalAllGames();
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] pb-2">
-      <div className="flex flex-col items-center justify-center gap-4 px-3 pt-12 pb-2">
+    <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-right-6">
+      <div className="flex flex-col w-full items-start justify-start gap-2 px-3 pt-12 pb-2">
         <img
-          className="w-20 h-20 rounded-full"
+          className="w-16 h-16 rounded-full"
           src="https://api.dicebear.com/7.x/thumbs/svg?seed=Coco"
         />
-        <div className="flex flex-col items-center text-center gap-1">
-          <span className="text-lg text-white">Anonymous user</span>
-          <span className="text-sm text-neutral-400">@anonymous-user</span>
+        <div className="flex flex-col gap-0.5 px-1">
+          <span className="text-lg text-white">Player (You)</span>
+          <span className="text-sm text-neutral-400">@player</span>
         </div>
       </div>
 
@@ -33,7 +33,7 @@ export default page(() => {
         </div>
       ) : (
         <>
-          <div className="relative flex items-end justify-center gap-4 px-3 pt-12 pb-2">
+          <div className="relative flex items-end justify-center gap-4 px-3 pt-4 pb-4">
             {[1, 3, 4, 2, 6, 4, 6, 10].map((each, i) => (
               <span
                 key={`bar-${i}`}
@@ -107,17 +107,17 @@ export default page(() => {
 
                         return (
                           <span
-                            className="leading-none text-2xl"
+                            className="leading-none text-lg"
                             key={`attempt-${i}-${j}`}
                           >
                             {row}
                           </span>
                         );
                       })}
-                      {Array.from({ length: 5 - attempts.length }).map(
+                      {Array.from({ length: 6 - attempts.length }).map(
                         (_, k) => (
                           <span
-                            className="leading-none text-2xl opacity-50"
+                            className="leading-none text-xl opacity-50"
                             key={`attempt-${i}-${k}x`}
                           >
                             {"⬜".repeat(items.length)}
