@@ -2,6 +2,7 @@ import { page } from "@d-exclaimation/next";
 import Image from "next/image";
 import Link from "next/link";
 import example from "./example.jpg";
+import InstallForIOS from "./ios";
 
 export default page(() => {
   return (
@@ -60,14 +61,10 @@ export default page(() => {
             >
               Open in browser
             </Link>
-
-            <button className="px-4 py-2 rounded-full text-sm text-blue-400 outline outline-blue-400">
-              Install &rarr;
-            </button>
           </div>
         </section>
 
-        <section className="flex pt-8 md:pt-0 md:flex-[2] w-full h-full items-center justify-start px-8">
+        <section className="hidden md:flex pt-8 md:pt-0 md:flex-[2] w-full h-full items-center justify-start px-8">
           <div
             className="relative scale-75 lg:scale-100 flex items-center justify-center px-6 pt-6 pb-16
           bg-white shadow-xl shadow-blue-400/30 rounded-lg rotate-2 animate-unrotate"
@@ -86,6 +83,8 @@ export default page(() => {
             </span>
           </div>
         </section>
+
+        <InstallForIOS />
       </main>
     </>
   );
