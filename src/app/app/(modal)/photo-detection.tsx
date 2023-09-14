@@ -41,7 +41,7 @@ export default rc(() => {
 
     // Load the model and evaluate the image
     const model = await loadModel();
-    const predictions = await model.detect(img);
+    const predictions = await model.detect(img, 20, 0.125);
     const items = goal?.items ?? [];
     const given = predictions
       .map(({ class: name }) => {
