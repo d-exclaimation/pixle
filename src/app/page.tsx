@@ -21,7 +21,7 @@ export default page(() => {
               Pixle
             </span>
 
-            <div className="text-blue-400 px-3 py-0.5 text-xs outline outline-blue-400 rounded-full">
+            <div className="text-blue-400 px-3 py-0.5 text-xs border border-blue-400 rounded-full">
               Free &amp; Open source
             </div>
           </div>
@@ -70,14 +70,14 @@ export default page(() => {
           bg-white shadow-xl shadow-blue-400/30 rounded-lg rotate-2 animate-unrotate"
           >
             <Image
-              className="w-60 lg:w-80 aspect-square object-cover rounded-md outline outline-neutral-800"
+              className="w-60 lg:w-80 aspect-square object-cover rounded-md border border-neutral-800"
               src={example}
               alt="example-image"
               sizes="320px"
               placeholder="blur"
             />
 
-            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 outline outline-blue-300 rounded-full animate-slideup" />
+            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 border border-blue-300 rounded-full animate-slideup" />
             <span className="absolute scale-75 lg:scale-100 top-[10.25rem] lg:top-[13.5rem] bg-blue-300 text-black px-2 text-xs py-0.5 rounded-full animate-slideup [animation-delay:0.5s]">
               Dog 🐶
             </span>

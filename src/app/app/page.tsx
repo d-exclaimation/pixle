@@ -117,17 +117,17 @@ export default page(() => {
         <>
           {/* Game */}
           <div
-            className={`flex flex-col w-full rounded-3xl outline outline-2 py-5 px-3
+            className={`flex flex-col w-full rounded-3xl border-2 py-5 px-3
             ${
               difficulty === "easiest"
-                ? "outline-blue-600"
+                ? "border-blue-600"
                 : difficulty === "easy"
-                ? "outline-purple-500"
+                ? "border-purple-500"
                 : difficulty === "medium"
-                ? "outline-fuchsia-400"
+                ? "border-fuchsia-400"
                 : difficulty === "hard"
-                ? "outline-red-400"
-                : "outline-orange-500"
+                ? "border-red-400"
+                : "border-orange-500"
             }`}
           >
             {/* Header */}
@@ -186,7 +186,7 @@ export default page(() => {
                       className="flex flex-row items-center gap-2.5 -translate-x-1"
                       key={`row-${i}`}
                     >
-                      <div className="w-2 h-2 bg-black outline outline-4 outline-white rounded-full mr-3" />
+                      <div className="w-2 h-2 bg-black border-4 border-white rounded-full mr-3" />
                       {attempt.length
                         ? attempt.map(({ icon, kind }, j) => {
                             const color =

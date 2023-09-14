@@ -63,34 +63,34 @@ export default page(() => {
                 winning ? (
                   <img
                     key={`attempt-${i}`}
-                    className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] object-cover outline max-w-[10rem] max-h-[10rem]
+                    className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] object-cover border max-w-[10rem] max-h-[10rem]
                     ${
                       difficulty === "easiest"
-                        ? "outline-blue-600"
+                        ? "border-blue-600"
                         : difficulty === "easy"
-                        ? "outline-purple-500"
+                        ? "border-purple-500"
                         : difficulty === "medium"
-                        ? "outline-fuchsia-400"
+                        ? "border-fuchsia-400"
                         : difficulty === "hard"
-                        ? "outline-red-400"
-                        : "outline-orange-500"
+                        ? "border-red-400"
+                        : "border-orange-500"
                     }`}
                     src={winning}
                   />
                 ) : (
                   <div
                     key={`attempt-${i}`}
-                    className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] bg-neutral-700 flex items-center justify-center outline max-w-[10rem] max-h-[10rem]
+                    className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] bg-neutral-700 flex items-center justify-center border max-w-[10rem] max-h-[10rem]
                     ${
                       difficulty === "easiest"
-                        ? "outline-blue-600"
+                        ? "border-blue-600"
                         : difficulty === "easy"
-                        ? "outline-purple-500"
+                        ? "border-purple-500"
                         : difficulty === "medium"
-                        ? "outline-fuchsia-400"
+                        ? "border-fuchsia-400"
                         : difficulty === "hard"
-                        ? "outline-red-400"
-                        : "outline-orange-500"
+                        ? "border-red-400"
+                        : "border-orange-500"
                     }`}
                   >
                     <div className="flex flex-col">

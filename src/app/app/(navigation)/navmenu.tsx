@@ -49,7 +49,7 @@ export default rc(() => {
         href={isStandalone ? "/app/profile?standalone=true" : "/app/profile"}
       >
         <img
-          className="rounded-full outline outline-white"
+          className="rounded-full border border-white"
           src="https://api.dicebear.com/7.x/thumbs/svg?seed=Coco"
         />
       </Link>

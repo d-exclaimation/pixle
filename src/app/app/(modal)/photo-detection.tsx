@@ -118,7 +118,7 @@ export default rc(() => {
       }}
     >
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 bg-black/40 outline-none select-none" />
+        <Drawer.Overlay className="fixed inset-0 bg-black/40 border-none select-none" />
         <Drawer.Content
           className="bg-neutral-800  flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0 outline-none select-none z-[60]"
           onOpenAutoFocus={() => {
