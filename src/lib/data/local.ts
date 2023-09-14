@@ -29,6 +29,11 @@ export function useLocalGameOfTheDay(goal: Goal | undefined) {
       const raw = await daily.get(goal.day);
       const maybeGame = await safeParseAsync(Game, raw);
       if (maybeGame.success) {
+        // Update the goal correctly match global
+        const game = maybeGame.output;
+        game.goal = goal;
+        await daily.put(game);
+
         return maybeGame.output;
       }
 
