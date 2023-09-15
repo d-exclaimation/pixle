@@ -1,10 +1,11 @@
 "use client";
 
-import { useLocalAllGames } from "@/lib/data/local";
+import { useLocalAllGames, useResetMutation } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
 
 export default page(() => {
   const { data, isLoading } = useLocalAllGames();
+  const { isLoading: isMutationLoading, mutate } = useResetMutation();
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-right-6">
@@ -92,6 +93,10 @@ export default page(() => {
                         ? "border-red-400"
                         : "border-orange-500"
                     }`}
+                    onClick={() => {
+                      if (i !== data.length - 1 || isMutationLoading) return;
+                      mutate();
+                    }}
                   >
                     <div className="flex flex-col">
                       {attempts.map((attempt, j) => {

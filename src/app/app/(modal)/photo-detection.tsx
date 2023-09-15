@@ -182,7 +182,9 @@ export default rc(() => {
                 <div className="flex flex-col w-full gap-3 items-center justify-center pt-6 animate-in fade-in-0">
                   <button
                     className="w-[60%] px-3 py-2 bg-neutral-700 text-white rounded-xl"
-                    disabled={isMutationLoading || attempt.length === 0}
+                    disabled={
+                      isGoalLoading || isMutationLoading || attempt.length === 0
+                    }
                     onClick={async () => {
                       if (!photo) return;
                       const basePhoto = await base64(photo.file);

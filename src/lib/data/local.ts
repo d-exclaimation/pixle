@@ -92,3 +92,30 @@ export function useLocalAttemptMutation(goal: Goal | undefined) {
     },
   });
 }
+
+export function useResetMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["daily", "reset"],
+    mutationFn: async () => {
+      const daily = await store("daily");
+      const raw = await daily.getAll();
+      const maybeGames = await safeParseAsync(Games, raw);
+      if (!maybeGames.success) {
+        return;
+      }
+      const games = maybeGames.output;
+      const lastGame = games.at(-1);
+      if (!lastGame || lastGame.winning) {
+        return;
+      }
+      await daily.delete(lastGame.day);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === "daily" && query.queryKey[1] === "game",
+      });
+    },
+  });
+}
