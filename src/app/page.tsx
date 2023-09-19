@@ -10,18 +10,18 @@ export default page(() => {
       <nav className="w-full flex items-center gap-3 md:gap-4 py-6 px-8">
         <img className="w-8 h-8" src="/pixle.png" />
         <span className="text-white font-medium">Pixle</span>
-        <div className="ml-auto">
+        <a className="ml-auto" href="https://github.com/d-exclaimation/pixle">
           <img className="w-6 h-6" src="/github.svg" />
-        </div>
+        </a>
       </nav>
       <main className="w-full flex-1 flex flex-col md:flex-row items-center justify-center md:pt-0 px-4 md:px-[8vw] pb-[16dvh]">
         <section className="md:flex-[3] flex flex-col p-3 w-full h-full justify-center gap-5">
           <div className="flex items-center gap-4">
-            <span className="text-blue-400 font-semibold text-xl md:text-2xl">
+            <span className="text-sky-400 font-semibold text-xl md:text-2xl">
               Pixle
             </span>
 
-            <div className="text-blue-400 px-3 py-0.5 text-xs border border-blue-400 rounded-full">
+            <div className="text-sky-400 px-3 py-0.5 text-xs border border-sky-400 rounded-full">
               Free &amp; Open source
             </div>
           </div>
@@ -57,7 +57,7 @@ export default page(() => {
           <div className="flex items-center gap-6">
             <Link
               href="/app"
-              className="px-4 py-2 rounded-full text-white bg-blue-500"
+              className="px-4 py-2 rounded-md text-neutral-900 bg-sky-500"
             >
               Open in browser
             </Link>
@@ -67,7 +67,7 @@ export default page(() => {
         <section className="hidden md:flex pt-8 md:pt-0 md:flex-[2] w-full h-full items-center justify-start px-8">
           <div
             className="relative scale-75 lg:scale-100 flex items-center justify-center px-6 pt-6 pb-16
-          bg-white shadow-xl shadow-blue-400/30 rounded-lg rotate-2 animate-unrotate"
+          bg-white shadow-xl shadow-sky-400/30 rounded-lg rotate-2 animate-unrotate"
           >
             <Image
               className="w-60 lg:w-80 aspect-square object-cover rounded-md border border-neutral-800"
@@ -77,8 +77,8 @@ export default page(() => {
               placeholder="blur"
             />
 
-            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 border border-blue-300 rounded-full animate-slideup" />
-            <span className="absolute scale-75 lg:scale-100 top-[10.25rem] lg:top-[13.5rem] bg-blue-300 text-black px-2 text-xs py-0.5 rounded-full animate-slideup [animation-delay:0.5s]">
+            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 border border-green-400 rounded-full animate-slideup" />
+            <span className="absolute scale-75 lg:scale-100 top-[10.25rem] lg:top-[13.5rem] bg-green-400 text-black px-2 text-xs py-0.5 rounded-full animate-slideup [animation-delay:0.5s]">
               Dog 🐶
             </span>
           </div>

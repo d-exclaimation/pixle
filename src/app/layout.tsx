@@ -1,9 +1,9 @@
 import { layout, meta } from "@d-exclaimation/next";
-import { DM_Mono, DM_Sans, DM_Serif_Display } from "next/font/google";
+import { DM_Mono, DM_Serif_Display, Manrope } from "next/font/google";
 import Provider from "./(query)/provider";
 import "./globals.css";
 
-const sans = DM_Sans({
+const sans = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
 });
