@@ -14,10 +14,20 @@ export default page(() => {
           className="w-16 h-16 rounded-full"
           src="https://api.dicebear.com/7.x/thumbs/svg?seed=Coco"
         />
-        <div className="flex flex-col gap-0.5 px-1">
+        <div className="flex flex-col gap-0.5 px-1 w-full">
           <span className="text-lg text-white">Player (You)</span>
           <span className="text-sm text-neutral-400">@player</span>
         </div>
+      </div>
+      <div className="flex items-center w-full px-3 py-4">
+        <button className="flex items-center gap-1 px-2 py-1 rounded bg-neutral-500/20 text-white text-xs">
+          <img className="w-3 h-3 invert" src="/menu.svg" />
+          Settings
+        </button>
+        <button className="ml-auto flex items-center gap-1 px-2 py-1 rounded bg-neutral-500/20 text-red-100 text-xs">
+          <img className="w-3 h-3" src="/reset.svg" />
+          Reset Today
+        </button>
       </div>
 
       {isLoading ? (
@@ -106,7 +116,7 @@ export default page(() => {
                               ? "🟩"
                               : kind === "similar"
                               ? "🟨"
-                              : "🟥"
+                              : "⬜"
                           )
                           .join("");
 
@@ -119,16 +129,6 @@ export default page(() => {
                           </span>
                         );
                       })}
-                      {Array.from({ length: 6 - attempts.length }).map(
-                        (_, k) => (
-                          <span
-                            className="leading-none text-xl opacity-50"
-                            key={`attempt-${i}-${k}x`}
-                          >
-                            {"⬜".repeat(items.length)}
-                          </span>
-                        )
-                      )}
                     </div>
                   </div>
                 )

@@ -191,10 +191,10 @@ export default page(() => {
                         ? attempt.map(({ icon, kind }, j) => {
                             const color =
                               kind === "exact"
-                                ? "bg-emerald-500/30"
+                                ? "bg-green-500/30"
                                 : kind === "similar"
                                 ? "bg-yellow-500/30"
-                                : "bg-red-500/30";
+                                : "bg-slate-500/30";
                             return (
                               <div
                                 className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center
