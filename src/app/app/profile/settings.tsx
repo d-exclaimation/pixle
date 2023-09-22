@@ -18,7 +18,8 @@ export default rc(() => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="z-50 min-w-[8rem] overflow-hidden rounded-lg border-2 border-indigo-300/10 bg-neutral-900 text-white shadow-md p-1.5 gap-0.5
+          className="z-50 min-w-[16rem] overflow-hidden rounded-lg border-2 border-indigo-300/10 
+          bg-neutral-900 text-white shadow-md p-1.5 gap-0.5
           data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95
           data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 
           data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 
@@ -128,7 +129,7 @@ export default rc(() => {
             }}
           >
             Forfeit Today{" "}
-            <span className="ml-4 text-neutral-200/50 group-hover:text-white">
+            <span className="ml-auto text-neutral-200/50 group-hover:text-white">
               ⌘ ⌫
             </span>
           </DropdownMenu.Item>
