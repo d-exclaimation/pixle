@@ -36,7 +36,7 @@ export const metadata = meta({
     viewportFit: "cover",
   },
   manifest: "/site.webmanifest",
-  themeColor: "#1e1b4b",
+  themeColor: "#030121",
 });
 
 export default layout(({ children }) => {
