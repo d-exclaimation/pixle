@@ -1,6 +1,7 @@
 import { layout, meta } from "@d-exclaimation/next";
 import { DM_Mono, DM_Serif_Display, Manrope } from "next/font/google";
-import Provider from "./(query)/provider";
+import QueryProvider from "./(query)/provider";
+import SettingsProvider from "./(settings)/provider";
 import "./globals.css";
 
 const sans = Manrope({
@@ -35,20 +36,19 @@ export const metadata = meta({
     viewportFit: "cover",
   },
   manifest: "/site.webmanifest",
-  themeColor: "#171717",
+  themeColor: "#1e1b4b",
 });
 
 export default layout(({ children }) => {
   return (
     <html
       lang="en"
-      className={`bg-neutral-900 w-full h-full ${sans.variable} ${mono.variable} ${serif.variable} font-sans`}
-      style={{
-        backgroundColor: "#171717",
-      }}
+      className={`bg-[#030121] w-full h-full ${sans.variable} ${mono.variable} ${serif.variable} font-sans`}
     >
       <body className="flex flex-col w-full min-h-full items-center justify-start">
-        <Provider>{children}</Provider>
+        <QueryProvider>
+          <SettingsProvider>{children}</SettingsProvider>
+        </QueryProvider>
       </body>
     </html>
   );

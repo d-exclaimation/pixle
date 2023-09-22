@@ -45,3 +45,9 @@ export const Game = v.object({
 
 export type Games = v.Output<typeof Games>;
 export const Games = v.array(Game);
+
+export type Settings = v.Output<typeof Settings>;
+export const Settings = v.object({
+  mode: v.enumType(["hard", "baby"]),
+  confidence: v.enumType(["lenient", "medium", "strict"]),
+});

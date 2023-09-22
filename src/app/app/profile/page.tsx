@@ -1,12 +1,12 @@
 "use client";
 
-import { useLocalAllGames, useResetMutation } from "@/lib/data/local";
+import { useLocalAllGames } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
+import Link from "next/link";
+import Settings from "./settings";
 
 export default page(() => {
   const { data, isLoading } = useLocalAllGames();
-  const { isLoading: isMutationLoading, mutate } = useResetMutation();
-
   return (
     <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-right-6">
       <div className="flex flex-col w-full items-start justify-start gap-2 px-3 pt-12 pb-2">
@@ -14,20 +14,13 @@ export default page(() => {
           className="w-16 h-16 rounded-full"
           src="https://api.dicebear.com/7.x/thumbs/svg?seed=Coco"
         />
-        <div className="flex flex-col gap-0.5 px-1 w-full">
+        <div className="flex flex-col px-1 w-full">
           <span className="text-lg text-white">Player (You)</span>
-          <span className="text-sm text-neutral-400">@player</span>
+          <div className="flex items-center w-full">
+            <span className="text-sm text-neutral-400">@player</span>
+            <Settings />
+          </div>
         </div>
-      </div>
-      <div className="flex items-center w-full px-3 py-4">
-        <button className="flex items-center gap-1 px-2 py-1 rounded bg-neutral-500/20 text-white text-xs">
-          <img className="w-3 h-3 invert" src="/menu.svg" />
-          Settings
-        </button>
-        <button className="ml-auto flex items-center gap-1 px-2 py-1 rounded bg-neutral-500/20 text-red-100 text-xs">
-          <img className="w-3 h-3" src="/reset.svg" />
-          Reset Today
-        </button>
       </div>
 
       {isLoading ? (
@@ -68,13 +61,14 @@ export default page(() => {
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-2 py-6 place-items-center place-content-center px-3">
-            {data?.map(
-              ({ winning, attempts, goal: { difficulty, items } }, i) =>
-                winning ? (
-                  <img
-                    key={`attempt-${i}`}
-                    className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] object-cover border max-w-[10rem] max-h-[10rem]
+          {data && data.length > 0 ? (
+            <div className="grid w-full grid-cols-2 py-6 place-items-center place-content-center px-3">
+              {data.map(
+                ({ winning, attempts, goal: { difficulty, items } }, i) =>
+                  winning ? (
+                    <img
+                      key={`attempt-${i}`}
+                      className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] object-cover border max-w-[10rem] max-h-[10rem] rounded
                     ${
                       difficulty === "easiest"
                         ? "border-blue-600"
@@ -86,12 +80,12 @@ export default page(() => {
                         ? "border-red-400"
                         : "border-orange-500"
                     }`}
-                    src={winning}
-                  />
-                ) : (
-                  <div
-                    key={`attempt-${i}`}
-                    className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] bg-neutral-700 flex items-center justify-center border max-w-[10rem] max-h-[10rem]
+                      src={winning}
+                    />
+                  ) : (
+                    <div
+                      key={`attempt-${i}`}
+                      className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] bg-neutral-700 flex items-center justify-center border max-w-[10rem] max-h-[10rem] rounded
                     ${
                       difficulty === "easiest"
                         ? "border-blue-600"
@@ -103,37 +97,47 @@ export default page(() => {
                         ? "border-red-400"
                         : "border-orange-500"
                     }`}
-                    onClick={() => {
-                      if (i !== data.length - 1 || isMutationLoading) return;
-                      mutate();
-                    }}
-                  >
-                    <div className="flex flex-col">
-                      {attempts.map((attempt, j) => {
-                        const row = attempt
-                          .map(({ kind }) =>
-                            kind === "exact"
-                              ? "🟩"
-                              : kind === "similar"
-                              ? "🟨"
-                              : "⬜"
-                          )
-                          .join("");
+                    >
+                      <div className="flex flex-col">
+                        {attempts.map((attempt, j) => {
+                          const row = attempt
+                            .map(({ kind }) =>
+                              kind === "exact"
+                                ? "🟩"
+                                : kind === "similar"
+                                ? "🟨"
+                                : "⬜"
+                            )
+                            .join("");
 
-                        return (
-                          <span
-                            className="leading-none text-lg"
-                            key={`attempt-${i}-${j}`}
-                          >
-                            {row}
-                          </span>
-                        );
-                      })}
+                          return (
+                            <span
+                              className="leading-none text-lg"
+                              key={`attempt-${i}-${j}`}
+                            >
+                              {row}
+                            </span>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )
-            )}
-          </div>
+                  )
+              )}
+            </div>
+          ) : (
+            <div className="flex-1 w-full flex flex-col gap-1 items-center justify-center">
+              <span className="text-white font-bold">No game records</span>
+              <span className="text-white/50 text-sm">
+                You have not played any game yet
+              </span>
+              <Link
+                href="/app"
+                className="text-white/75 font-semibold text-xs mt-1 underline mb-[20%]"
+              >
+                &larr; Start playing
+              </Link>
+            </div>
+          )}
         </>
       )}
     </div>

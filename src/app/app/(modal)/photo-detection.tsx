@@ -1,5 +1,6 @@
 "use client";
 
+import { useSettings } from "@/app/(settings)/provider";
 import type { Attempt, AttemptItem } from "@/lib/data/common";
 import { useGlobalOfTheDay } from "@/lib/data/global";
 import { useLocalAttemptMutation } from "@/lib/data/local";
@@ -14,6 +15,7 @@ import { Drawer } from "vaul";
 import { useCamera } from "../(camera)/context";
 
 export default rc(() => {
+  const { confidence, mode } = useSettings();
   const { data: goal, isLoading: isGoalLoading } = useGlobalOfTheDay();
   const { mutateAsync, isLoading: isMutationLoading } =
     useLocalAttemptMutation(goal);
@@ -40,8 +42,10 @@ export default rc(() => {
     document.body.appendChild(img);
 
     // Load the model and evaluate the image
+    const minScore =
+      confidence === "lenient" ? 0.2 : confidence === "medium" ? 0.4 : 0.6;
     const model = await loadModel();
-    const predictions = await model.detect(img, 20, 0.125);
+    const predictions = await model.detect(img, 20, minScore);
     const items = goal?.items ?? [];
     const given = predictions
       .map(({ class: name }) => {
@@ -120,7 +124,7 @@ export default rc(() => {
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 border-none select-none" />
         <Drawer.Content
-          className="bg-neutral-800  flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0 outline-none select-none z-[60]"
+          className="bg-neutral-800 flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0 outline-none select-none z-[60]"
           onOpenAutoFocus={() => {
             if (!photo || typeof window === "undefined") return;
             timeoutRef.current = setTimeout(() => {
@@ -181,14 +185,14 @@ export default rc(() => {
               {!loading && !isGoalLoading && (
                 <div className="flex flex-col w-full gap-3 items-center justify-center pt-6 animate-in fade-in-0">
                   <button
-                    className="w-[60%] px-3 py-2 bg-neutral-700 text-white rounded-xl"
+                    className="w-[60%] px-3 py-2 bg-white text-black rounded-xl hover:bg-white/80"
                     disabled={
                       isGoalLoading || isMutationLoading || attempt.length === 0
                     }
                     onClick={async () => {
                       if (!photo) return;
                       const basePhoto = await base64(photo.file);
-                      await mutateAsync({ attempt, photo: basePhoto });
+                      await mutateAsync({ attempt, photo: basePhoto, mode });
 
                       (window.URL || window.webkitURL).revokeObjectURL(
                         photo.uri
@@ -199,7 +203,7 @@ export default rc(() => {
                     Confirm
                   </button>
                   <button
-                    className="w-[60%] px-3 py-2 bg-neutral-50 text-red-700 rounded-xl"
+                    className="w-[60%] px-3 py-2 text-red-400 rounded-xl hover:bg-red-400/10"
                     onClick={() => {
                       if (!photo) return;
                       (window.URL || window.webkitURL).revokeObjectURL(

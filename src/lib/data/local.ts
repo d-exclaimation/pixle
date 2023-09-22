@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { safeParseAsync } from "valibot";
-import { Attempt, Game, Games, Goal } from "./common";
+import { Attempt, Game, Games, Goal, Settings } from "./common";
 import { store } from "./idb";
 
 export function useLocalAllGames() {
@@ -53,13 +53,14 @@ export function useLocalGameOfTheDay(goal: Goal | undefined) {
 type LocalAttemptMutationArgs = {
   attempt: Attempt;
   photo: string;
+  mode: "hard" | "baby";
 };
 
 export function useLocalAttemptMutation(goal: Goal | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["daily", "attempt", goal?.day],
-    mutationFn: async ({ attempt, photo }: LocalAttemptMutationArgs) => {
+    mutationFn: async ({ attempt, photo, mode }: LocalAttemptMutationArgs) => {
       if (!goal) {
         return;
       }
@@ -78,9 +79,14 @@ export function useLocalAttemptMutation(goal: Goal | undefined) {
         attempt.every(({ kind }) => kind === "exact") &&
         attempt.length === goal.items.length;
 
+      const attempts = [...game.attempts, attempt];
+
       const newGame = {
         ...game,
-        attempts: [...game.attempts, attempt].slice(0, 6),
+        attempts:
+          mode === "hard"
+            ? attempts.slice(0, 6)
+            : attempts.slice(Math.max(0, attempts.length - 6)),
         winning: win ? photo : undefined,
       } satisfies Game;
 
@@ -115,6 +121,42 @@ export function useResetMutation() {
       await queryClient.invalidateQueries({
         predicate: (query) =>
           query.queryKey[0] === "daily" && query.queryKey[1] === "game",
+      });
+    },
+  });
+}
+
+export function useLocalSettings() {
+  return useQuery({
+    queryKey: ["settings"],
+    queryFn: async () => {
+      const raw = localStorage.getItem("pixle:user:settings");
+      const maybeSettings = await safeParseAsync(
+        Settings,
+        JSON.parse(raw ?? "{}")
+      );
+      if (maybeSettings.success) {
+        return maybeSettings.output;
+      }
+      const settings = {
+        mode: "hard",
+        confidence: "lenient",
+      } satisfies Settings;
+      return settings;
+    },
+  });
+}
+
+export function useLocalSettingsMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["settings"],
+    mutationFn: async (updated: Settings) => {
+      localStorage.setItem("pixle:user:settings", JSON.stringify(updated));
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "settings",
       });
     },
   });

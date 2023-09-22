@@ -25,7 +25,7 @@ export default rc(() => {
       data-standalone={isStandalone ? "true" : undefined}
     >
       <Link
-        className="w-12 h-12 p-2 rounded-full group-data-[standalone]:hover:bg-white/10 hover:bg-white/40"
+        className="w-12 h-12 p-2 rounded-full group-data-[standalone]:hover:bg-white/10 hover:bg-indigo-200/40"
         href={isStandalone ? "/app?standalone=true" : "/app"}
       >
         <img
@@ -35,7 +35,7 @@ export default rc(() => {
       </Link>
       <button
         className="bg-black w-12 h-12 p-2 rounded-full
-        group-data-[standalone]:w-14 group-data-[standalone]:h-14 md:bg-white
+        group-data-[standalone]:w-14 group-data-[standalone]:h-14 md:bg-indigo-50
         group-data-[standalone]:bg-white group-data-[standalone]:-translate-y-2"
         onClick={open}
       >
@@ -45,7 +45,7 @@ export default rc(() => {
         />
       </button>
       <Link
-        className="w-12 h-12 p-2 rounded-full hover:bg-white/10 md:hover:bg-white/40"
+        className="w-12 h-12 p-2 rounded-full hover:bg-white/10 md:hover:bg-indigo-200/40"
         href={isStandalone ? "/app/profile?standalone=true" : "/app/profile"}
       >
         <img

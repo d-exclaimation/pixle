@@ -17,11 +17,11 @@ export default page(() => {
       <main className="w-full flex-1 flex flex-col md:flex-row items-center justify-center md:pt-0 px-4 md:px-[8vw] pb-[16dvh]">
         <section className="md:flex-[3] flex flex-col p-3 w-full h-full justify-center gap-5">
           <div className="flex items-center gap-4">
-            <span className="text-sky-400 font-semibold text-xl md:text-2xl">
+            <span className="text-indigo-400 font-semibold text-xl md:text-2xl">
               Pixle
             </span>
 
-            <div className="text-sky-400 px-3 py-0.5 text-xs border border-sky-400 rounded-full">
+            <div className="text-indigo-400 px-3 py-0.5 text-xs border border-indigo-400 rounded-full">
               Free &amp; Open source
             </div>
           </div>
@@ -57,7 +57,7 @@ export default page(() => {
           <div className="flex items-center gap-6">
             <Link
               href="/app"
-              className="px-4 py-2 rounded-md text-neutral-900 bg-sky-500"
+              className="px-4 py-2 rounded-md text-indigo-950 bg-white"
             >
               Open in browser
             </Link>
@@ -77,8 +77,8 @@ export default page(() => {
               placeholder="blur"
             />
 
-            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 border border-green-400 rounded-full animate-slideup" />
-            <span className="absolute scale-75 lg:scale-100 top-[10.25rem] lg:top-[13.5rem] bg-green-400 text-black px-2 text-xs py-0.5 rounded-full animate-slideup [animation-delay:0.5s]">
+            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 border border-purple-400 rounded-full animate-slideup" />
+            <span className="absolute scale-75 lg:scale-100 top-[10.25rem] lg:top-[13.5rem] bg-purple-400 text-black px-2 text-xs py-0.5 rounded-full animate-slideup [animation-delay:0.5s]">
               Dog 🐶
             </span>
           </div>
