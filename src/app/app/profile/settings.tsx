@@ -18,7 +18,7 @@ export default rc(() => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="z-50 min-w-[16rem] overflow-hidden rounded-lg border-2 border-indigo-300/10 
+          className="z-50 min-w-[11rem] overflow-hidden rounded-lg border-2 border-indigo-300/10 
           bg-neutral-900 text-white shadow-md p-1.5 gap-0.5
           data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95
           data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 
@@ -121,7 +121,7 @@ export default rc(() => {
 
           <DropdownMenu.Separator className="w-full h-[1px] bg-white/10 my-1" />
           <DropdownMenu.Item
-            className="group text-xs text-red-400 select-none outline-none px-2 py-1.5 rounded hover:bg-red-500 hover:text-white"
+            className="group flex items-center text-xs text-red-400 select-none outline-none px-2 py-1.5 rounded hover:bg-red-500 hover:text-white"
             disabled={isMutationLoading}
             onClick={() => {
               if (isMutationLoading) return;
