@@ -46,7 +46,7 @@ export function useLocalGameOfTheDay(goal: Goal | undefined) {
       await daily.add(game);
       return game;
     },
-    enabled: !!goal?.day,
+    enabled: !!goal,
   });
 }
 
