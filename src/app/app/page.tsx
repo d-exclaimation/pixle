@@ -4,7 +4,7 @@ import { useGlobalOfTheDay } from "@/lib/data/global";
 import { useLocalGameOfTheDay } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
 import { useEffect, useMemo, useState } from "react";
-import { useCamera } from "./(camera)/context";
+import RandomTextmoji from "../(components)/random-textmoji";
 
 export default page(() => {
   const {
@@ -18,7 +18,6 @@ export default page(() => {
     error: localError,
   } = useLocalGameOfTheDay(goal);
 
-  const { open } = useCamera();
   const [today, setToday] = useState(new Date());
 
   const isLoading = useMemo(
@@ -49,23 +48,16 @@ export default page(() => {
     return (
       <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-left-6">
         <div className="flex flex-col gap-1.5 pt-10 pb-8">
-          <span className="text-neutral-300 text-xs">Hi, player</span>
-          <span className="text-white text-xl font-medium">Welcome back!</span>
+          <span className="text-neutral-800 dark:text-neutral-300 text-xs">
+            Hi, player
+          </span>
+          <span className="text-black dark:text-white text-xl font-medium">
+            Welcome back!
+          </span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-2">
           <div className="flex flex-col items-center justify-center gap-4 w-[75%] mb-24">
-            <span className="text-6xl text-red-300/40 font-medium text-center">
-              (&gt;_&lt;)
-            </span>
-            <span className="text-xs text-red-300 text-center [text-wrap:balance]">
-              Unable to retrive daily goal, please try again later
-            </span>
-            <button
-              className="text-xs text-white underline"
-              onClick={() => window.location.reload()}
-            >
-              Try again
-            </button>
+            <RandomTextmoji message="Unable to load today's goal" />
           </div>
         </div>
       </div>
@@ -76,18 +68,19 @@ export default page(() => {
     return (
       <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-left-6">
         <div className="flex flex-col gap-1.5 pt-10 pb-8">
-          <span className="text-neutral-300 text-xs">Hi, player</span>
-          <span className="text-white text-xl font-medium">Welcome back!</span>
+          <span className="text-neutral-800 dark:text-neutral-300 text-xs">
+            Hi, player
+          </span>
+          <span className="text-black dark:text-white text-xl font-medium">
+            Welcome back!
+          </span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-2">
           <div className="flex flex-col items-center justify-center gap-4 w-[75%] mb-24">
-            <span className="text-6xl text-red-300/40 font-medium text-center">
-              (&gt;_&lt;)
-            </span>
-            <span className="text-xs text-red-300 text-center [text-wrap:balance]">
-              Your browser is not supported, please try again on a different
-              browser
-            </span>
+            <RandomTextmoji
+              message="Your browser is not supported, please try again on a different
+              browser"
+            />
           </div>
         </div>
       </div>
@@ -97,8 +90,12 @@ export default page(() => {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] pb-2 animate-in slide-in-from-left-6">
       <div className="flex flex-col gap-1.5 pt-10 pb-8">
-        <span className="text-neutral-300 text-xs">Hi, player</span>
-        <span className="text-white text-xl font-medium">Welcome back!</span>
+        <span className="text-neutral-800 dark:text-neutral-300 text-xs">
+          Hi, player
+        </span>
+        <span className="text-black dark:text-white text-xl font-medium">
+          Welcome back!
+        </span>
       </div>
 
       {isLoading ? (
@@ -106,7 +103,7 @@ export default page(() => {
           {[0, 0.25, 0.5, 1].map((each, i) => (
             <div
               key={`loading-${i}`}
-              className="w-3 h-3 rounded-full mt-4 bg-neutral-400 animate-bounce [animation-fill-mode:backwards] mb-20"
+              className="w-3 h-3 rounded-full mt-4 bg-neutral-600 dark:bg-neutral-400 animate-bounce [animation-fill-mode:backwards] mb-20"
               style={{
                 animationDelay: `${each}s`,
               }}
@@ -132,7 +129,7 @@ export default page(() => {
           >
             {/* Header */}
             <div className="flex items-center gap-2">
-              <div className="rounded-full w-8 h-8 bg-white flex items-center justify-center">
+              <div className="rounded-full w-8 h-8 bg-slate-200 dark:bg-neutral-800 flex items-center justify-center">
                 <svg
                   className="w-5 h-5"
                   viewBox="0 0 68 68"
@@ -156,14 +153,16 @@ export default page(() => {
                 </svg>
               </div>
 
-              <span className="text-white font-medium">Today's goal</span>
+              <span className="text-black dark:text-white font-medium">
+                Today's goal
+              </span>
 
               <div className="flex flex-col ml-auto">
-                <span className="text-white font-semibold">
+                <span className="text-black dark:text-white font-semibold">
                   {today.getDate() < 10 ? "0" : ""}
                   {today.getDate()}
                 </span>
-                <span className="text-neutral-300 leading-none text-[0.6rem]">
+                <span className="text-neutral-800 dark:text-neutral-300 leading-none text-[0.6rem]">
                   {today.toLocaleString("en-NZ", {
                     month: "short",
                     year: "numeric",
@@ -173,20 +172,20 @@ export default page(() => {
             </div>
 
             {/* Description */}
-            <span className="mt-4 mx-2 font-medium text-white">
+            <span className="mt-4 mx-2 font-medium text-black dark:text-white">
               {items.length} items • {difficulty} difficulty
             </span>
 
             {/* Wordle */}
             <div className="flex flex-col mt-6 w-full">
-              <div className="flex flex-col w-full gap-2.5 mx-4 border-l border-neutral-600/50">
+              <div className="flex flex-col w-full gap-2.5 mx-4 border-l border-neutral-300/50 dark:border-neutral-600/50">
                 {attempts.map((attempt, i) => {
                   return (
                     <div
                       className="flex flex-row items-center gap-2.5 -translate-x-1"
                       key={`row-${i}`}
                     >
-                      <div className="w-2 h-2 bg-black border-4 border-white rounded-full mr-3" />
+                      <div className="w-2 h-2 bg-black border-4 border-black dark:border-white rounded-full mr-3" />
                       {attempt.length
                         ? attempt.map(({ icon, kind }, j) => {
                             const color =
@@ -194,7 +193,7 @@ export default page(() => {
                                 ? "bg-green-500/30"
                                 : kind === "similar"
                                 ? "bg-yellow-500/30"
-                                : "bg-slate-500/30";
+                                : "bg-slate-500/10 dark:bg-slate-500/30";
                             return (
                               <div
                                 className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center
@@ -213,7 +212,7 @@ export default page(() => {
                           })
                         : items.map((_, j) => (
                             <div
-                              className={`w-12 h-12 rounded-lg bg-neutral-700 flex items-center justify-center`}
+                              className={`w-12 h-12 rounded-lg bg-neutral-300 dark:bg-neutral-700 flex items-center justify-center`}
                               key={`col-${j}`}
                             ></div>
                           ))}
@@ -225,7 +224,7 @@ export default page(() => {
 
             {/* Winning photo */}
             <div className="relative flex items-center w-full mt-8 mb-3 px-4 gap-3 py-4">
-              <div className="px-2 py-2 pb-6 bg-white -rotate-2">
+              <div className="px-2 py-2 pb-6 bg-white shadow -rotate-2">
                 {game?.winning ? (
                   <img className="w-32 h-32 object-cover" src={game.winning} />
                 ) : (
@@ -237,27 +236,16 @@ export default page(() => {
                 <span className="text-white text-sm max-w-[80%] text-center [text-wrap:balance]">
                   Snapped a winning picture!
                 </span>
-                <button className="min-w-[8rem] py-1 bg-neutral-600 text-white rounded-full text-sm">
+                <button className="min-w-[8rem] py-1 bg-neutral-400 dark:bg-neutral-600 dark:text-white rounded-full text-sm">
                   Share
                 </button>
-                <button className="min-w-[8rem] py-1 bg-neutral-50 text-neutral-900 rounded-full text-sm">
+                <button className="min-w-[8rem] py-1 bg-neutral-950 dark:bg-neutral-50 text-neutral-100 dark:text-neutral-900 rounded-full text-sm">
                   Save photo
                 </button>
               </div>
               {!game?.winning && (
-                <div className="absolute inset-0 bg-[#202020]/80 backdrop-blur flex flex-col items-center justify-center gap-2">
-                  <span className="text-lg text-white font-medium">
-                    No winning photo
-                  </span>
-                  <span className="text-xs text-neutral-300">
-                    You have not snapped the photo of the day yet
-                  </span>
-                  <button
-                    className="text-xs text-white underline"
-                    onClick={open}
-                  >
-                    Take more photos &rarr;
-                  </button>
+                <div className="absolute inset-0 bg-[#EFEFEF]/90 dark:bg-[#202020]/90 backdrop-blur-lg flex flex-col items-center justify-center gap-2">
+                  <RandomTextmoji message="No winning photo yet" />
                 </div>
               )}
             </div>

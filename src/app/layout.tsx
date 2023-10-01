@@ -36,14 +36,17 @@ export const metadata = meta({
     viewportFit: "cover",
   },
   manifest: "/site.webmanifest",
-  themeColor: "#030121",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#030121" },
+    { media: "(prefers-color-scheme: light)", color: "#f2faff" },
+  ],
 });
 
 export default layout(({ children }) => {
   return (
     <html
       lang="en"
-      className={`bg-[#030121] w-full h-full ${sans.variable} ${mono.variable} ${serif.variable} font-sans`}
+      className={`bg-[#f2faff] dark:bg-[#011321] w-full h-full ${sans.variable} ${mono.variable} ${serif.variable} font-sans`}
     >
       <body className="flex flex-col w-full min-h-full items-center justify-start">
         <QueryProvider>

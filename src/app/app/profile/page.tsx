@@ -1,8 +1,8 @@
 "use client";
 
+import RandomTextmoji from "@/app/(components)/random-textmoji";
 import { useLocalAllGames } from "@/lib/data/local";
 import { page } from "@d-exclaimation/next";
-import Link from "next/link";
 import Settings from "./settings";
 
 export default page(() => {
@@ -15,9 +15,11 @@ export default page(() => {
           src="https://api.dicebear.com/7.x/thumbs/svg?seed=Coco"
         />
         <div className="flex flex-col px-1 w-full">
-          <span className="text-lg text-white">Player (You)</span>
+          <span className="text-lg dark:text-white">Player (You)</span>
           <div className="flex items-center w-full">
-            <span className="text-sm text-neutral-400">@player</span>
+            <span className="text-sm text-neutral-700 dark:text-neutral-400">
+              @player
+            </span>
             <Settings />
           </div>
         </div>
@@ -28,7 +30,7 @@ export default page(() => {
           {[0, 0.25, 0.5, 1].map((each, i) => (
             <div
               key={`loading-${i}`}
-              className="w-3 h-3 rounded-full mt-4 bg-neutral-400 animate-bounce [animation-fill-mode:backwards] mb-20"
+              className="w-3 h-3 rounded-full mt-4 bg-neutral-700 dark:bg-neutral-400 animate-bounce [animation-fill-mode:backwards] mb-20"
               style={{
                 animationDelay: `${each}s`,
               }}
@@ -41,22 +43,28 @@ export default page(() => {
             {[1, 3, 4, 2, 6, 4, 6, 10].map((each, i) => (
               <span
                 key={`bar-${i}`}
-                className="w-6 rounded bg-white opacity-[0.025]"
+                className="w-6 rounded bg-black dark:bg-white opacity-[0.025]"
                 style={{ height: `${Math.round(each / 2)}rem` }}
               />
             ))}
 
             <div className="absolute inset-0 flex items-center justify-around gap-4 px-3 pt-12 pb-2">
               <div className="flex flex-col items-center justify-center gap-1">
-                <span className="text-lg text-white">{data?.length ?? 0}</span>
-                <span className="text-sm text-neutral-400">Games Played</span>
+                <span className="text-lg dark:text-white">
+                  {data?.length ?? 0}
+                </span>
+                <span className="text-sm text-neutral-700 dark:text-neutral-400">
+                  Games Played
+                </span>
               </div>
 
               <div className="flex flex-col items-center justify-center gap-1">
-                <span className="text-lg text-white">
+                <span className="text-lg dark:text-white">
                   {data?.filter(({ winning }) => winning)?.length ?? 0}
                 </span>
-                <span className="text-sm text-neutral-400">Games Won</span>
+                <span className="text-sm text-neutral-700 dark:text-neutral-400">
+                  Games Won
+                </span>
               </div>
             </div>
           </div>
@@ -85,7 +93,7 @@ export default page(() => {
                   ) : (
                     <div
                       key={`attempt-${i}`}
-                      className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] bg-neutral-700 flex items-center justify-center border max-w-[10rem] max-h-[10rem] rounded
+                      className={`w-[calc(50vw-2rem)] h-[calc(50vw-2rem)] bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center border max-w-[10rem] max-h-[10rem] rounded
                     ${
                       difficulty === "easiest"
                         ? "border-blue-600"
@@ -98,7 +106,7 @@ export default page(() => {
                         : "border-orange-500"
                     }`}
                     >
-                      <div className="flex flex-col">
+                      <div className="flex flex-col shadow-md">
                         {attempts.map((attempt, j) => {
                           const row = attempt
                             .map(({ kind }) =>
@@ -126,16 +134,7 @@ export default page(() => {
             </div>
           ) : (
             <div className="flex-1 w-full flex flex-col gap-1 items-center justify-center">
-              <span className="text-white font-bold">No game records</span>
-              <span className="text-white/50 text-sm">
-                You have not played any game yet
-              </span>
-              <Link
-                href="/app"
-                className="text-white/75 font-semibold text-xs mt-1 underline mb-[20%]"
-              >
-                &larr; Start playing
-              </Link>
+              <RandomTextmoji message="No games played" />
             </div>
           )}
         </>

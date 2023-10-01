@@ -7,7 +7,16 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg,transparent,#202020 500px),
-    fixed 0 0 /20px 20px radial-gradient(#202020 1px, transparent 0),
-    fixed 10px 10px /20px 20px radial-gradient(#202020 1px, transparent 0);
+  background: linear-gradient(180deg,transparent,#EFEFEF 500px),
+    fixed 0 0 /20px 20px radial-gradient(#DFDFDF 1px, transparent 0),
+    fixed 10px 10px /20px 20px radial-gradient(#DFDFDF 1px, transparent 0);
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(180deg,transparent,#202020 500px),
+      fixed 0 0 /20px 20px radial-gradient(#202020 1px, transparent 0),
+      fixed 10px 10px /20px 20px radial-gradient(#202020 1px, transparent 0);
+  }
 }

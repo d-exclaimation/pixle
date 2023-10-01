@@ -9,7 +9,7 @@ export default page(() => {
     <>
       <nav className="w-full flex items-center gap-3 md:gap-4 py-6 px-8">
         <img className="w-8 h-8" src="/pixle.png" />
-        <span className="text-white font-medium">Pixle</span>
+        <span className="text-black dark:text-white font-medium">Pixle</span>
         <a className="ml-auto" href="https://github.com/d-exclaimation/pixle">
           <img className="w-6 h-6" src="/github.svg" />
         </a>
@@ -17,38 +17,38 @@ export default page(() => {
       <main className="w-full flex-1 flex flex-col md:flex-row items-center justify-center md:pt-0 px-4 md:px-[8vw] pb-[16dvh]">
         <section className="md:flex-[3] flex flex-col p-3 w-full h-full justify-center gap-5">
           <div className="flex items-center gap-4">
-            <span className="text-indigo-400 font-semibold text-xl md:text-2xl">
+            <span className="text-sky-600 dark:text-sky-400 font-semibold text-xl md:text-2xl">
               Pixle
             </span>
 
-            <div className="text-indigo-400 px-3 py-0.5 text-xs border border-indigo-400 rounded-full">
+            <div className="text-sky-600 dark:text-sky-400 px-3 py-0.5 text-xs border border-sky-600 dark:border-sky-400 rounded-full">
               Free &amp; Open source
             </div>
           </div>
 
-          <h1 className="text-white font-bold text-3xl md:text-4xl lg:text-6xl">
+          <h1 className="text-black dark:text-white font-bold text-3xl md:text-4xl lg:text-6xl">
             Capture the world,
             <br />
             one picture at a time
           </h1>
 
           <div className="flex flex-col gap-4 py-2">
-            <span className="flex items-center gap-2 text-neutral-200">
+            <span className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
               <img src="/check.svg" className="w-5 h-5 inline-block" />
               Global and fun challenge every day
             </span>
 
-            <span className="flex items-center gap-2 text-neutral-200">
+            <span className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
               <img src="/check.svg" className="w-5 h-5 inline-block" />
               Share your best shots with the world
             </span>
 
-            <span className="flex items-center gap-2 text-neutral-200">
+            <span className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
               <img src="/check.svg" className="w-5 h-5 inline-block" />
               Powered by AI running on device
             </span>
 
-            <span className="flex items-center gap-2 text-neutral-200">
+            <span className="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
               <img src="/check.svg" className="w-5 h-5 inline-block" />
               No ads, no tracking, no BS
             </span>
@@ -57,7 +57,7 @@ export default page(() => {
           <div className="flex items-center gap-6">
             <Link
               href="/app"
-              className="px-4 py-2 rounded-md text-indigo-950 bg-white"
+              className="px-4 py-2 rounded-md text-sky-50 dark:text-sky-950 bg-black dark:bg-white"
             >
               Open in browser
             </Link>
@@ -77,10 +77,17 @@ export default page(() => {
               placeholder="blur"
             />
 
-            <div className="absolute scale-75 lg:scale-100 top-[4.25rem] lg:top-[6.5rem] w-32 h-32 border border-purple-400 rounded-full animate-slideup" />
-            <span className="absolute scale-75 lg:scale-100 top-[10.25rem] lg:top-[13.5rem] bg-purple-400 text-black px-2 text-xs py-0.5 rounded-full animate-slideup [animation-delay:0.5s]">
-              Dog 🐶
-            </span>
+            <div className="absolute top-[12.25rem] lg:top-[16.5rem] flex items-center gap-2">
+              <span className="bg-green-50 border border-green-400 backdrop-blur-xl shadow text-black px-3 py-1.5 text-lg rounded-xl animate-slideup [animation-delay:0.25s]">
+                👤
+              </span>
+              <span className="bg-neutral-50 border border-neutral-400 backdrop-blur-xl shadow text-black px-3 py-1.5 text-lg rounded-xl animate-slideup [animation-delay:0.5s]">
+                🍦
+              </span>
+              <span className="bg-yellow-50 border border-yellow-400 backdrop-blur-xl shadow text-black px-3 py-1.5 text-lg rounded-xl animate-slideup [animation-delay:0.75s]">
+                🚘
+              </span>
+            </div>
           </div>
         </section>
 

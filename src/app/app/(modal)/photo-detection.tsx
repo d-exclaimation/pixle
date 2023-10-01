@@ -124,7 +124,7 @@ export default rc(() => {
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 border-none select-none" />
         <Drawer.Content
-          className="bg-neutral-800 flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0 outline-none select-none z-[60]"
+          className="bg-neutral-50 dark:bg-neutral-800 flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0 outline-none select-none z-[60]"
           onOpenAutoFocus={() => {
             if (!photo || typeof window === "undefined") return;
             timeoutRef.current = setTimeout(() => {
@@ -133,15 +133,15 @@ export default rc(() => {
             }, 1000);
           }}
         >
-          <div className="p-4 bg-neutral-800 rounded-t-[10px] flex-1">
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-neutral-600 mb-8" />
+          <div className="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-t-[10px] flex-1">
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-600 mb-8" />
             <div className="max-w-md mx-auto">
-              <Drawer.Title className="font-semibold mb-4 text-white text-lg px-2">
+              <Drawer.Title className="font-semibold mb-4 text-black dark:text-white text-lg px-2">
                 Evaluating photo
               </Drawer.Title>
 
               <div className="flex items-center justify-center w-full py-6">
-                <article className="px-4 pt-4 pb-10 bg-white rounded rotate-2">
+                <article className="px-4 pt-4 pb-10 bg-white rounded rotate-2 shadow shadow-sky-400/30">
                   <img
                     className="w-72 h-72 object-cover rounded-sm"
                     src={photo?.uri}
@@ -155,7 +155,7 @@ export default rc(() => {
                     {[0, 0.25, 0.5, 1].map((each, i) => (
                       <div
                         key={`loading-${i}`}
-                        className="w-3 h-3 rounded-full mt-10 bg-neutral-400 animate-bounce [animation-fill-mode:backwards]"
+                        className="w-3 h-3 rounded-full mt-10 bg-neutral-700 dark:bg-neutral-400 animate-bounce [animation-fill-mode:backwards]"
                         style={{
                           animationDelay: `${each}s`,
                         }}
@@ -168,7 +168,7 @@ export default rc(() => {
                       .filter((each) => each.name !== "none")
                       .map(({ icon }, j) => (
                         <div
-                          className={`w-12 h-12 rounded-lg bg-neutral-700 flex items-center justify-center
+                          className={`w-12 h-12 rounded-lg bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center
                           animate-in slide-in-from-bottom-3 fade-in-0 fill-mode-backwards duration-700`}
                           key={`col-${j}`}
                           style={{
@@ -185,7 +185,7 @@ export default rc(() => {
               {!loading && !isGoalLoading && (
                 <div className="flex flex-col w-full gap-3 items-center justify-center pt-6 animate-in fade-in-0">
                   <button
-                    className="w-[60%] px-3 py-2 bg-white text-black rounded-xl hover:bg-white/80"
+                    className="w-[60%] px-3 py-2 bg-black dark:bg-white text-white dark:text-black rounded-xl hover:bg-opacity-80"
                     disabled={
                       isGoalLoading || isMutationLoading || attempt.length === 0
                     }
@@ -203,7 +203,7 @@ export default rc(() => {
                     Confirm
                   </button>
                   <button
-                    className="w-[60%] px-3 py-2 text-red-400 rounded-xl hover:bg-red-400/10"
+                    className="w-[60%] px-3 py-2 text-red-700 dark:text-red-400 rounded-xl hover:bg-red-400/10"
                     onClick={() => {
                       if (!photo) return;
                       (window.URL || window.webkitURL).revokeObjectURL(
