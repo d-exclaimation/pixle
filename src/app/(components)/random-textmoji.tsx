@@ -34,7 +34,7 @@ export default rc<Props>(({ message, size }) => {
   return (
     <div className="flex flex-1 w-full h-full flex-col items-center justify-center gap-3">
       <span
-        className="text-neutral-500 dark:text-neutral-400 font-bold text-4xl data-[size=medium]:text-6xl data-[size=large]:text-7xl"
+        className="text-neutral-500/60 dark:text-neutral-400/60 font-bold text-3xl data-[size=medium]:text-4xl data-[size=large]:text-5xl"
         data-size={size ?? "medium"}
       >
         {emoji}

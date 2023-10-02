@@ -233,7 +233,7 @@ export default page(() => {
               </div>
 
               <div className="flex flex-col items-center justify-center flex-1 gap-3">
-                <span className="text-white text-sm max-w-[80%] text-center [text-wrap:balance]">
+                <span className="text-black dark:text-white text-sm max-w-[80%] text-center [text-wrap:balance]">
                   Snapped a winning picture!
                 </span>
                 <button className="min-w-[8rem] py-1 bg-neutral-400 dark:bg-neutral-600 dark:text-white rounded-full text-sm">

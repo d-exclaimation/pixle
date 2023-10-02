@@ -4,10 +4,24 @@ import { useSettings } from "@/app/(settings)/provider";
 import { useResetMutation } from "@/lib/data/local";
 import { rc } from "@d-exclaimation/next";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { useEffect } from "react";
 
 export default rc(() => {
   const { mode, confidence, setSettings } = useSettings();
   const { isLoading: isMutationLoading, mutate } = useResetMutation();
+
+  useEffect(() => {
+    function shortcut(e: KeyboardEvent) {
+      // CMD + delete
+      if (e.metaKey && e.code === "Backspace") {
+        mutate();
+      }
+    }
+    window.addEventListener("keydown", shortcut);
+
+    return () => window.removeEventListener("keydown", shortcut);
+  }, [mutate]);
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -29,9 +43,13 @@ export default rc(() => {
           side="bottom"
           align="end"
         >
-          <DropdownMenu.Item className="group flex text-xs text-neutral-800 dark:text-neutral-200 select-none outline-none px-2 py-1.5 rounded hover:bg-sky-500 hover:text-white">
+          <DropdownMenu.Item
+            className="group flex text-xs text-neutral-800 dark:text-neutral-200 select-none outline-none px-2 py-1.5 rounded -hover:bg-sky-500 -hover:text-white 
+            opacity-50 cursor-not-allowed"
+            disabled
+          >
             Edit Profile
-            <span className="ml-auto text-neutral-800/50 dark:text-neutral-200/50 group-hover:text-white">
+            <span className="ml-auto text-neutral-800/50 dark:text-neutral-200/50 -group-hover:text-white">
               ⌘ E
             </span>
           </DropdownMenu.Item>
@@ -51,7 +69,7 @@ export default rc(() => {
             <DropdownMenu.RadioItem
               className="flex items-center text-xs text-neutral-800 dark:text-neutral-200 select-none outline-none px-2 py-1.5 rounded 
             hover:bg-sky-500 hover:text-white group
-            data-[state=checked]:bg-sky-500/20 data-[state=checked]:text-white"
+            data-[state=checked]:bg-sky-500/20 data-[state=checked]:text-black dark:data-[state=checked]:text-white"
               value="hard"
             >
               Hard
