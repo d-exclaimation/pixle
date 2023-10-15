@@ -22,6 +22,15 @@ const serif = DM_Serif_Display({
 export const metadata = meta({
   title: "Pixle",
   description: "Capture the world, one snap at a time",
+  openGraph: {
+    type: "article",
+    images: ["/app/banner.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@dexclaimation",
+    images: ["/app/banner.png"],
+  },
   icons: {
     icon: [
       "/favicon.ico",
